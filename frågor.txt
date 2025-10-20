@@ -1,0 +1,76 @@
+Vad är pull repektive push?
+
+svar: 
+Push betyder att man laddar upp sina filer och ändringarna i dem från sin dator och upp till Github.
+Push betyder motsatsen, att du till exempel hämtar ner filerna till din dator från Github, om du till exempel bytt dator,
+eller om någon annan ska använda det du pushat. 
+
+
+När använder man log respektive status?
+svar: 
+Git status använder du för att se vilka filer som är commitade, eller behöver commitas, samt ser vad som ändrats.
+Git log skriver ut en lista över allt som comittats, med meddelandena och tiderna. 
+
+
+Vad är en Git branch och varför är de viktiga?
+svar:
+En branch använder man sig av för att till exempel testa ny kod utan att riskera att påverka eller förstöra tidigare koden,
+det används till exempel om man jobbar i team eller så.
+
+
+
+Det finns flera sätt att rulla tillbaka koden till ett tidigare tillstånd. 
+Förklara skillnaden och motivera när man skulle använda den ena eller andra metoden. 
+Ge exempel på de kommandon du använder för att göra detta och vissa att det fungerar, vilken output du fick från git-kommandona.
+Tips: Gör exemplen med att backa i en branch så att master fortfarande är korrekt. 
+
+svar:
+Jag använde mig av en branch för att testa detta. Jag gjorde ett medvetet fel, och la till en metod som inte ska vara med,
+och sen commitade jag. Sen använde jag log för att visa historiken. Sedan använde jag git revert HEAD för att ångra och ta tillbaka det förra tillståndet. 
+När jag använder revert så är historiken fortfarande intakt men visar även min ändring ( alltså min revert ), git reset tar också bort historiken.
+Sen för att återgå till main branchen använder jag: git checkout main 
+
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git checkout -b test
+Switched to a new branch 'test'
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ nano GuessingGame.java
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git add GuessingGame.java
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git commit -m "la till ett medvetet fel i metoden"
+[test 0df18bc] la till ett medvetet fel i metoden
+ 1 file changed, 2 insertions(+)
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git log
+commit 0df18bc3bf0b70755b76bbcd9b94bb2af2bab78a (HEAD -> test)
+Author: Eric Linde <ericlinde19@gmail.com>
+Date:   Mon Oct 20 16:36:59 2025 +0200
+
+    la till ett medvetet fel i metoden 
+---------------------------------------------------------------------
+
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git revert HEAD
+[test 83b9f9f] Revert "la till ett medvetet fel i metoden" var ett test, backar commiten
+ 1 file changed, 2 deletions(-)
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ log
+Command 'log' not found, but there are 15 similar ones.
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git log
+commit 83b9f9f5920509e5af5b18fdb3292471dcdf2b0d (HEAD -> test)
+Author: Eric Linde <ericlinde19@gmail.com>
+Date:   Mon Oct 20 16:46:41 2025 +0200
+
+    Revert "la till ett medvetet fel i metoden"
+    var ett test, backar commiten
+
+    This reverts commit 0df18bc3bf0b70755b76bbcd9b94bb2af2bab78a.
+
+[test 83b9f9f] Revert "la till ett medvetet fel i metoden" var ett test, backar commiten
+ 1 file changed, 2 deletions(-)
+diff --git a/GuessingGame.java b/GuessingGame.java
+index bfe1bac..81abf98 100644
+--- a/GuessingGame.java
++++ b/GuessingGame.java
+@@ -2,7 +2,5 @@ public class GuessingGame {
+     public static void main(String[] args) {
+         Guesser guess = new Guesser(0, 10);
+         guess.start();
+        guess.ending(); --- DET HÄR VAR DET MEDVETNA FELET
+
+     }
+ }
