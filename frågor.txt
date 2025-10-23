@@ -2,14 +2,14 @@ Vad är pull repektive push?
 
 svar: 
 Push betyder att man laddar upp sina filer och ändringarna i dem från sin dator och upp till Github.
-Push betyder motsatsen, att du till exempel hämtar ner filerna till din dator från Github, om du till exempel bytt dator,
+Push betyder motsatsen, att du till exempel hämtar ner filerna från ett remote repository till din dator från Github, om du till exempel bytt dator,
 eller om någon annan ska använda det du pushat. 
 
 
 När använder man log respektive status?
 svar: 
-Git status använder du för att se vilka filer som är commitade, eller behöver commitas, samt ser vad som ändrats.
-Git log skriver ut en lista över allt som comittats, med meddelandena och tiderna. 
+Git status använder du för att se vilka filer som är ändrade,  commitade, eller behöver commitas.
+Git log skriver ut en historik över allt som comittats, med meddelandena och tidstämplar. 
 
 
 Vad är en Git branch och varför är de viktiga?
@@ -29,6 +29,15 @@ Jag använde mig av en branch för att testa detta. Jag gjorde ett medvetet fel,
 och sen commitade jag. Sen använde jag log för att visa historiken. Sedan använde jag git revert HEAD för att ångra och ta tillbaka det förra tillståndet. 
 När jag använder revert så är historiken fortfarande intakt men visar även min ändring ( alltså min revert ), git reset tar också bort historiken.
 Sen för att återgå till main branchen använder jag: git checkout main 
+
+Förtydligande av svar:
+
+git revert : används för att skapa en ny commit som återställer ändringarna från en tidigare commit. 
+Detta används när man vill bevara historiken men ta bort en ändring i filen.
+
+git reset: används för att ta bort commits och samtidigt ändra historiken. Alltså om vill ta bort en commit helt från historiken.
+
+Nedan ligger exempel på utskrifter i ubuntu där jag använde mig av revert:
 
 ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git checkout -b test
 Switched to a new branch 'test'
