@@ -1,3 +1,4 @@
+Jag siktar på VG.
 Vad är pull repektive push?
 
 svar: 
@@ -83,3 +84,58 @@ index bfe1bac..81abf98 100644
 
      }
  }
+
+
+
+VG Del----
+
+Jag skapade två feature branches, feature-1 och feature-2.
+Jag mergeade feature-1 in i main, vilket skapade en merge commit.
+
+Merge:
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git merge feature-1
+Updating e0b8a2f..6a15c21
+Fast-forward
+ GuessingGame.java | 2 ++
+ 1 file changed, 2 insertions(+)
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git log
+commit 6a15c21b97ba50dc452f0e804a55ac3af5d0202b (HEAD -> main, feature-1)
+Author: Eric Linde <ericlinde19@gmail.com>
+Date:   Fri Oct 24 15:00:43 2025 +0200
+
+    La till en kommentar som test
+
+
+Jag använde sedan git rebase main på feature-2
+
+REBASE: 
+
+ ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git checkout feature-2
+Switched to branch 'feature-2'
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git rebase main
+Auto-merging GuessingGame.java
+CONFLICT (content): Merge conflict in GuessingGame.java
+error: could not apply 503430d... La till en annan kommentar som test 2
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+Could not apply 503430d... La till en annan kommentar som test 2
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ nano GuessingGame.java
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git add GuessingGame.java
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git rebase --continue
+[detached HEAD 8ed0fa3] La till en annan kommentar som test 2
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+Successfully rebased and updated refs/heads/feature-2.
+ericlinde@LAPTOP-NEP4J9LH:~/guessingGame$ git log
+commit 8ed0fa3727e0d69e9d936ccbe649ba4847ec7fab (HEAD -> feature-2)
+Author: Eric Linde <ericlinde19@gmail.com>
+Date:   Fri Oct 24 15:02:50 2025 +0200
+
+
+Svar: 
+
+Merge är bra när man jobbar i team och vill behålla hela historiken.
+Rebase har en rakare historik men skriver om den, vilket kan göra det svårt om man är flera.
+
+När jag fick konflikter löste jag dem genom att öppna filen som jag ändrade i, tog bort konfliktmarkeringarna och körde -- continue.
